@@ -21,7 +21,8 @@ const heroSlides = [
     highlight: 'Coffee & Spices',
     description:
       'Experience the rich aroma and distinctive flavors of Ethiopian coffee beans and spices, cultivated with centuries-old traditions and modern sustainable practices.',
-    image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&q=80',
+    // image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&q=80',
+    image: '/products/coffee-plant.jpeg',
     stats: { farmers: '50+', quality: '100%' },
   },
   {
@@ -41,7 +42,7 @@ const heroSlides = [
     highlight: 'World Markets',
     description:
       "Bridging the gap between global consumers and Ethiopia's finest agricultural exports through our extensive network spanning multiple continents.",
-    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=80',
+    image: '/products/cargo.jpeg',
     stats: { exports: '1188 MT', yearly: 'Growing' },
   },
 ]
@@ -136,7 +137,7 @@ export default function HeroCarousel() {
             <motion.h1 custom={1} variants={textVariants as any} className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-8">
               {currentSlide.title}
               <motion.span
-                className="block mt-2 bg-gradient-to-r from-[#D0AF39] via-[#E5C76B] to-[#D0AF39] bg-clip-text text-transparent"
+                className="block mt-2 bg-gradient-to-r from-[#D0AF39] via-[#E5C76B] to-[#D0AF39] bg-clip-text text-transparent pb-3"
                 initial={{ backgroundPosition: '0% 50%' }}
                 animate={{ backgroundPosition: '100% 50%' }}
                 transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}
@@ -145,15 +146,15 @@ export default function HeroCarousel() {
                 {currentSlide.highlight}
               </motion.span>
             </motion.h1>
-            <motion.p custom={2} variants={textVariants as any} className="text-lg md:text-xl text-white/80 leading-relaxed mb-10 max-w-2xl">
+            <motion.p custom={2} variants={textVariants as any} className="text-lg md:text-xl text-white/80 leading-relaxed mb-10 mt-[-5px] max-w-2xl">
               {currentSlide.description}
             </motion.p>
             <motion.div custom={3} variants={textVariants as any} className="flex flex-wrap gap-4">
-              <Button onClick={() => document.getElementById('our-products')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gradient-to-r from-[#D0AF39] to-[#B8962E] hover:from-[#B8962E] hover:to-[#9A7D26] text-[#223059] font-semibold px-8 py-6 text-base rounded-full shadow-xl shadow-[#D0AF39]/30 transition-all duration-300 hover:scale-105 group">
+              <Button onClick={() => document.getElementById('our-products')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gradient-to-r from-[#D0AF39] to-[#B8962E] hover:from-[#B8962E] hover:to-[#9A7D26] text-[#223059] font-semibold px-8 py-4 text-base rounded-full shadow-xl shadow-[#D0AF39]/30 transition-all duration-300 hover:scale-105 group">
                 Our Products
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline" onClick={() => document.getElementById('our-story')?.scrollIntoView({ behavior: 'smooth' })} className="border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 font-semibold px-8 py-6 text-base rounded-full backdrop-blur-sm">
+              <Button variant="outline" onClick={() => document.getElementById('our-story')?.scrollIntoView({ behavior: 'smooth' })} className="border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 font-semibold px-8 py-4 text-base rounded-full backdrop-blur-sm">
                 Learn More
               </Button>
             </motion.div>

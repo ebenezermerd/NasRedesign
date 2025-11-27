@@ -12,11 +12,11 @@ export const productsData = [
     tagline: 'Premium Ethiopian Oilseeds',
     description:
       "Our premium sesame seeds and other oilseeds are carefully selected from Ethiopia's finest farms. Known for their exceptional quality, rich oil content, and distinct flavor profile.",
-    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80',
+    image: '/products/oil-seeds.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80',
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
-      'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=800&q=80',
+      '/products/oilseeds(1).jpg',
+      '/products/oilseeds(2).jpg',
+      '/products/oilseeds(3).jpg',
     ],
     features: ['High Oil Content', 'Non-GMO Certified', 'Export Grade Quality', 'Sustainable Farming'],
     varieties: ['White Sesame', 'Black Sesame', 'Niger Seed', 'Sunflower'],
@@ -29,11 +29,11 @@ export const productsData = [
     tagline: 'Nutritious Ethiopian Grains',
     description:
       'Ethiopia is the birthplace of ancient grains like teff and sorghum. Our grains are cultivated using traditional methods combined with modern quality standards.',
-    image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&q=80',
+    image: '/products/grains-and-cereals.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&q=80',
-      'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&q=80',
-      'https://images.unsplash.com/photo-1547050605-2f268cd5baf0?w=800&q=80',
+      '/products/grains(1).jpg',
+      '/products/grains(2).jpg',
+      '/products/grains(3).jpg',
     ],
     features: ['Ancient Heritage', 'Gluten-Free Options', 'High Nutritional Value', 'Organic Available'],
     varieties: ['Teff (White & Brown)', 'Sorghum', 'Barley', 'Wheat'],
@@ -46,11 +46,11 @@ export const productsData = [
     tagline: 'Protein-Rich Legumes',
     description:
       "Our diverse range of pulses includes chickpeas, lentils, and beans, all sourced from Ethiopia's highland regions known for producing the highest quality legumes.",
-    image: 'https://images.unsplash.com/photo-1515543904323-4ce37f57a9ac?w=800&q=80',
+    image: '/products/pulses.jpeg',
     gallery: [
-      'https://images.unsplash.com/photo-1515543904323-4ce37f57a9ac?w=800&q=80',
-      'https://images.unsplash.com/photo-1613758947307-f3b8f5d80711?w=800&q=80',
-      'https://images.unsplash.com/photo-1551462147-ff29053bfc14?w=800&q=80',
+      '/products/pulse(1).jpg',
+      '/products/pulse(2).jpg',
+      '/products/pulse(3).jpg',
     ],
     features: ['High Protein', 'Fiber Rich', 'Essential Minerals', 'Long Shelf Life'],
     varieties: ['Chickpeas', 'Red Lentils', 'Green Lentils', 'Haricot Beans'],

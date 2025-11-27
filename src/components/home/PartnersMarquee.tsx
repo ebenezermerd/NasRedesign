@@ -1,127 +1,282 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Handshake, Globe, Award, Star } from 'lucide-react'
+import React, { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Handshake, ArrowRight, Sparkles } from 'lucide-react';
 
 const partners = [
-  { name: 'NEXT LLC', logo: 'N', tagline: 'Strategic Partner', country: 'UAE', icon: Globe },
-  { name: 'Green Mile Farm', logo: 'G', tagline: 'Agricultural Alliance', country: 'Kenya', icon: Award },
-  { name: 'Ethiopian Coffee Exchange', logo: 'E', tagline: 'Trade Partner', country: 'Ethiopia', icon: Handshake },
-  { name: 'Africa Trade Hub', logo: 'A', tagline: 'Export Network', country: 'South Africa', icon: Globe },
-  { name: 'Global Agri Partners', logo: 'G', tagline: 'International Distributor', country: 'Netherlands', icon: Star },
-  { name: 'Nordic Import Co.', logo: 'N', tagline: 'European Partner', country: 'Sweden', icon: Award },
-  { name: 'Middle East Foods', logo: 'M', tagline: 'Regional Distributor', country: 'Saudi Arabia', icon: Handshake },
-  { name: 'Asian Markets Ltd', logo: 'A', tagline: 'Asia Pacific Partner', country: 'Singapore', icon: Globe },
-]
+  { name: 'Chamber of Commerce', image: '/partners/Chamber_of_Commerce_and_sector_associations.png', country: 'Ethiopia' },
+  { name: 'K. Mikedem', image: '/partners/K. Mikedem_general_import_and_export_enterprise.png', country: 'Ethiopia' },
+  { name: 'Zemen Bank', image: '/partners/Zemen-Bank.png', country: 'Ethiopia' },
+  { name: 'Commercial Bank of Ethiopia', image: '/partners/commercial-bank-of-ethiopia.png', country: 'Ethiopia' },
+  { name: 'ECX', image: '/partners/ecx.png', country: 'Ethiopia' },
+  { name: 'Ministry of Trade', image: '/partners/minister_of_trade_and_regional_integration.png', country: 'Ethiopia' },
+  { name: 'Yawit Business Group', image: '/partners/yawit_business_group.png', country: 'Ethiopia' },
+];
 
-const PartnerCard = ({ partner, isPaused, onHover, onLeave, index }: any) => {
-  const Icon = partner.icon
+const PartnerLogo = ({ partner, isHovered, onHover, onLeave }) => {
   return (
-    <motion.div onMouseEnter={onHover} onMouseLeave={onLeave} className="flex-shrink-0 mx-4 group cursor-pointer" whileHover={{ scale: 1.08, zIndex: 50 }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>
-      <div className={`relative w-72 h-40 rounded-2xl overflow-hidden bg-gradient-to-br from-[#223059] via-[#2a3a6d] to-[#1a2545] border border-[#D0AF39]/20 shadow-xl shadow-black/20 transition-all duration-500 ${isPaused ? 'border-[#D0AF39]/60 shadow-2xl shadow-[#D0AF39]/20' : ''} group-hover:border-[#D0AF39]/60 group-hover:shadow-2xl group-hover:shadow-[#D0AF39]/30`}>
-        <div className="absolute inset-0 bg-gradient-to-br from-[#D0AF39]/0 via-[#D0AF39]/5 to-[#D0AF39]/0 group-hover:from-[#D0AF39]/10 group-hover:via-[#D0AF39]/20 group-hover:to-[#D0AF39]/10 transition-all duration-700" />
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
-        </div>
-        <div className="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-[#D0AF39]/30 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        <div className="relative h-full p-6 flex flex-col justify-between">
-          <div className="flex items-start justify-between">
-            <div className="relative">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#D0AF39] to-[#B8962E] flex items-center justify-center shadow-lg shadow-[#D0AF39]/30 group-hover:shadow-xl group-hover:shadow-[#D0AF39]/50 transition-all duration-500">
-                <span className="text-[#223059] font-bold text-2xl">{partner.logo}</span>
-              </div>
-              <div className="absolute inset-0 rounded-xl border-2 border-[#D0AF39]/0 group-hover:border-[#D0AF39]/50 group-hover:scale-110 transition-all duration-500" />
-            </div>
-            <div className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center group-hover:bg-[#D0AF39]/20 group-hover:border-[#D0AF39]/30 transition-all duration-500">
-              <Icon className="w-5 h-5 text-[#D0AF39]/70 group-hover:text-[#D0AF39] transition-colors duration-300" />
-            </div>
-          </div>
-          <div>
-            <h3 className="text-white font-bold text-lg mb-1 group-hover:text-[#D0AF39] transition-colors duration-300">{partner.name}</h3>
-            <div className="flex items-center justify-between">
-              <span className="text-white/50 text-sm group-hover:text-white/70 transition-colors duration-300">{partner.tagline}</span>
-              <span className="text-[#D0AF39]/60 text-xs font-medium px-2 py-1 rounded-full bg-[#D0AF39]/10 group-hover:bg-[#D0AF39]/20 transition-all duration-300">{partner.country}</span>
-            </div>
-          </div>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#D0AF39]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+    <div
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      className="flex-shrink-0 mx-8 md:mx-12 cursor-pointer group relative"
+    >
+      <div className="relative flex flex-col items-center justify-center h-32 w-48">
+        {/* Glow Effect on Hover */}
+        <div
+          className={`absolute inset-0 bg-[#D0AF39]/10 rounded-xl blur-xl pointer-events-none transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+        />
+
+        {/* Partner Image */}
+        <img
+          src={partner.image}
+          alt={partner.name}
+          className={`
+            max-w-full max-h-full object-contain transition-all duration-300 ease-out filter
+            ${isHovered
+              ? 'scale-110 brightness-110 drop-shadow-[0_0_15px_rgba(208,175,57,0.3)]'
+              : 'grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100'
+            }
+          `}
+        />
+
+        {/* Country Tag - Shows on Hover */}
+        <span
+          className={`absolute -bottom-8 uppercase text-center text-xs font-medium text-[#D0AF39] bg-[#D0AF39]/10 px-3 py-1 rounded-full transition-all duration-300 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}
+        >
+          {partner.name}
+        </span>
       </div>
-    </motion.div>
-  )
-}
+    </div>
+  );
+};
 
 export default function PartnersMarquee() {
-  const [isPaused, setIsPaused] = useState(false)
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const allPartners = [...partners, ...partners, ...partners]
+  const [isPaused, setIsPaused] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [direction, setDirection] = useState('left');
+  const containerRef = useRef(null);
+  const marqueeRef = useRef(null);
+
+  // Triple partners for seamless loop
+  const allPartners = [...partners, ...partners, ...partners];
+
+  const handleHover = (index, e) => {
+    setIsPaused(true);
+    setHoveredIndex(index);
+
+    // Detect hover position for direction change
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const mouseX = e.clientX;
+      const containerWidth = rect.width;
+      const leftZone = rect.left + containerWidth * 0.25;
+      const rightZone = rect.right - containerWidth * 0.25;
+
+      if (mouseX < leftZone) {
+        setDirection('right');
+      } else if (mouseX > rightZone) {
+        setDirection('left');
+      }
+    }
+  };
+
+  const handleLeave = () => {
+    setIsPaused(false);
+    setHoveredIndex(null);
+  };
 
   return (
-    <section id="our-partners" className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F8F6F0] via-white to-[#F8F6F0]" />
-        <div className="absolute top-0 left-0 w-1/3 h-64 opacity-10">
-          <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6926636cc91b978ae8c2c397/2062a4502_close-up-of-fresh-green-tea-leaves-glowing-in-the-sunlight-symbolizing-growth-and-freshness-So9mv8NPH7W8mFzx4IXWhg.jpg" alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F8F6F0] via-transparent to-[#F8F6F0]" />
-        </div>
-        <div className="absolute bottom-0 right-0 w-1/3 h-64 opacity-10">
-          <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6926636cc91b978ae8c2c397/eedb2fedd_flat-lay-of-organic-flaxseeds-in-wooden-spoons-showcasing-natural-nutrition-and-texture-R12ZDgb8aweeyP_6Vxl1kw.jpg" alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#F8F6F0] via-transparent to-[#F8F6F0]" />
-        </div>
-      </div>
-      <div className="absolute top-20 left-1/4 w-96 h-96 bg-[#D0AF39]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-20 right-1/4 w-72 h-72 bg-[#223059]/5 rounded-full blur-3xl pointer-events-none" />
+    <section id="our-partners" className="relative py-28 md:py-36 overflow-hidden">
+      {/* Elegant Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#FAFAF8] to-white" />
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 mb-16">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="text-center">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px w-16 bg-gradient-to-r from-transparent via-[#D0AF39] to-transparent" />
-            <Handshake className="w-5 h-5 text-[#D0AF39]" />
-            <span className="text-[#D0AF39] text-sm font-semibold tracking-[0.2em] uppercase">Our Partners</span>
-            <Handshake className="w-5 h-5 text-[#D0AF39]" />
-            <div className="h-px w-16 bg-gradient-to-r from-transparent via-[#D0AF39] to-transparent" />
+      {/* Subtle Pattern Overlay */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: `radial-gradient(circle at 1px 1px, #223059 1px, transparent 1px)`,
+        backgroundSize: '40px 40px'
+      }} />
+
+      {/* Decorative Blurs */}
+      <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-[#D0AF39]/5 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
+      <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-[#223059]/5 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
+
+      {/* Section Header */}
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 mb-16 md:mb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center"
+        >
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <motion.div
+              className="h-px w-16 bg-gradient-to-r from-transparent to-[#D0AF39]"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            />
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, type: "spring" }}
+              className="w-12 h-12 rounded-full bg-gradient-to-br from-[#D0AF39] to-[#B8962E] flex items-center justify-center shadow-lg shadow-[#D0AF39]/30"
+            >
+              <Handshake className="w-6 h-6 text-white" />
+            </motion.div>
+            <motion.div
+              className="h-px w-16 bg-gradient-to-l from-transparent to-[#D0AF39]"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            />
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#223059] mb-6">
-            Trusted <span className="bg-gradient-to-r from-[#D0AF39] via-[#E5C76B] to-[#D0AF39] bg-clip-text text-transparent">Collaborations</span>
+
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#223059] mb-4">
+            Our <span className="bg-gradient-to-r from-[#D0AF39] via-[#E5C76B] to-[#D0AF39] bg-clip-text text-transparent">Partners</span>
           </h2>
-          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-500 text-lg max-w-5xl mx-auto">
             We collaborate with leading international and local companies, institutions, and organizations across the agricultural value chain — from farmers and cooperatives to financial, regulatory, and research partners.
           </p>
         </motion.div>
       </div>
 
-      <div className="relative py-8">
-        <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-[#F8F6F0] via-[#F8F6F0]/80 to-transparent z-20 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-[#F8F6F0] via-[#F8F6F0]/80 to-transparent z-20 pointer-events-none" />
-        <motion.div className="flex" animate={{ x: isPaused ? undefined : [0, -80 * partners.length] }} transition={{ x: { duration: 40, repeat: Infinity, ease: 'linear' } }} style={{ animationPlayState: isPaused ? 'paused' : 'running' }}>
-          {[...partners, ...partners, ...partners].map((partner, idx) => (
-            <PartnerCard key={`${partner.name}-${idx}`} partner={partner} index={idx} isPaused={hoveredIndex === idx} onHover={() => { setIsPaused(true); setHoveredIndex(idx) }} onLeave={() => { setIsPaused(false); setHoveredIndex(null) }} />
+      {/* Marquee Container */}
+      <div ref={containerRef} className="relative py-12">
+        {/* Enhanced Gradient Masks */}
+        <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-white via-white/95 to-transparent z-20 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-white via-white/95 to-transparent z-20 pointer-events-none" />
+
+        {/* CSS-based Infinite Marquee */}
+        <div
+          ref={marqueeRef}
+          className="flex items-center"
+          style={{
+            animation: `marquee-${direction} 10s linear infinite`,
+            animationPlayState: isPaused ? 'paused' : 'running',
+          }}
+        >
+          {allPartners.map((partner, idx) => (
+            <PartnerLogo
+              key={`${partner.name}-${idx}`}
+              partner={partner}
+              isHovered={hoveredIndex === idx}
+              onHover={(e) => handleHover(idx, e)}
+              onLeave={handleLeave}
+            />
           ))}
-        </motion.div>
+        </div>
+
+        {/* CSS Keyframes */}
+        <style>{`
+          @keyframes marquee-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.333%); }
+          }
+          @keyframes marquee-right {
+            0% { transform: translateX(-33.333%); }
+            100% { transform: translateX(0); }
+          }
+        `}</style>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="relative max-w-7xl mx-auto px-6 lg:px-8 mt-20">
-        <div className="relative rounded-3xl overflow-hidden">
+      {/* Partnership CTA - Enhanced Design */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="relative max-w-7xl mx-auto px-6 lg:px-8 mt-20"
+      >
+        <div className="relative rounded-[2rem] overflow-hidden">
+          {/* Background Image */}
           <div className="absolute inset-0">
-            <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6926636cc91b978ae8c2c397/4b16d278b_drone-shot-of-a-loaded-container-ship-sailing-through-the-sea-near-naples-italy-pLI-beF3m29Ets_sY8sWaw.jpeg" alt="Global Shipping" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#223059]/95 via-[#223059]/85 to-[#223059]/75" />
+            <img
+              src="/products/container.jpeg"
+              alt="Global Shipping"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#223059]/98 via-[#223059]/90 to-[#223059]/80" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#223059]/50 to-transparent" />
           </div>
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#D0AF39]/10 rounded-full blur-3xl" />
-          <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-[#D0AF39]/5 rounded-full blur-2xl" />
-          <div className="relative z-10 p-10 md:p-14 text-center">
-            <div className="inline-flex items-center gap-2 bg-[#D0AF39]/20 text-[#D0AF39] px-4 py-2 rounded-full text-sm font-semibold mb-6">
-              <span className="w-2 h-2 bg-[#D0AF39] rounded-full animate-pulse" />
-              Partnership Opportunity
+
+          {/* Decorative Elements */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#D0AF39]/10 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#D0AF39]/5 rounded-full blur-[80px]" />
+
+          {/* Floating Particles */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {[...Array(6)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 bg-[#D0AF39]/30 rounded-full"
+                style={{
+                  left: `${15 + i * 15}%`,
+                  top: `${20 + (i % 3) * 25}%`,
+                }}
+                animate={{
+                  y: [-10, 10, -10],
+                  opacity: [0.3, 0.7, 0.3],
+                }}
+                transition={{
+                  duration: 3 + i * 0.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
+          </div>
+
+          <div className="relative z-10 p-10 md:p-16 lg:p-20">
+            <div className="max-w-2xl">
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-[#D0AF39] px-5 py-2.5 rounded-full text-sm font-semibold mb-6 border border-[#D0AF39]/20"
+              >
+                <Sparkles className="w-4 h-4" />
+                Partnership Opportunity
+              </motion.div>
+
+              <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                Ready to Partner <br />
+                <span className="bg-gradient-to-r from-[#D0AF39] via-[#E5C76B] to-[#D0AF39] bg-clip-text text-transparent">
+                  with Us?
+                </span>
+              </h3>
+              <p className="text-white/60 text-lg mb-10 leading-relaxed max-w-xl">
+                Join our growing network of trusted partners across the globe and unlock new opportunities
+                in Ethiopia's thriving agricultural export market.
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <motion.button
+                  whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(208,175,57,0.4)" }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="bg-gradient-to-r from-[#D0AF39] to-[#B8962E] hover:from-[#E5C76B] hover:to-[#D0AF39] text-[#223059] font-bold px-10 py-5 rounded-xl shadow-xl shadow-[#D0AF39]/30 inline-flex items-center gap-3 transition-all duration-300"
+                >
+                  Become a Partner
+                  <ArrowRight className="w-5 h-5" />
+                </motion.button>
+
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => document.getElementById('our-story')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold px-8 py-5 rounded-xl border border-white/20 inline-flex items-center gap-2 transition-all duration-300"
+                >
+                  Learn More
+                </motion.button>
+              </div>
             </div>
-            <h3 className="text-2xl md:text-4xl font-bold text-white mb-4">You want to work with us?</h3>
-            <p className="text-white/70 mb-8 max-w-xl mx-auto">
-              Join us in promoting Ethiopia's premium agricultural exports while championing sustainable practices. Together, we can make a meaningful impact on the global stage.
-            </p>
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gradient-to-r from-[#D0AF39] to-[#B8962E] hover:from-[#B8962E] hover:to-[#9A7D26] text-[#223059] font-semibold px-8 py-4 rounded-full shadow-xl shadow-[#D0AF39]/30 inline-flex items-center gap-2 transition-all">
-              Contact Us Now
-              <motion.span animate={{ x: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>→</motion.span>
-            </motion.button>
           </div>
         </div>
       </motion.div>
     </section>
-  )
+  );
 }

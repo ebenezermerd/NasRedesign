@@ -4,12 +4,12 @@ import { ArrowRight, Sparkles } from 'lucide-react'
 import ProductDialog from './ProductDialog'
 
 const products = [
-  { name: 'Oilseeds', image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80', desc: 'Premium sesame and other oilseeds', highlight: 'Best Seller' },
-  { name: 'Grains & Cereals', image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600&q=80', desc: 'High-quality Ethiopian grains', highlight: 'Ancient Heritage' },
-  { name: 'Pulses', image: 'https://images.unsplash.com/photo-1515543904323-4ce37f57a9ac?w=600&q=80', desc: 'Diverse range of nutritious pulses', highlight: 'Protein Rich' },
-  { name: 'Coffee', image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=80', desc: 'World-renowned Ethiopian coffee', highlight: 'Premium Grade' },
-  { name: 'Spices', image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=600&q=80', desc: 'Aromatic and flavorful spices', highlight: 'Traditional' },
-  { name: 'Fruits', image: 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=600&q=80', desc: 'Fresh tropical fruits', highlight: 'Farm Fresh' },
+  { name: 'Oilseeds', image: '/products/oil-seeds.jpeg', desc: 'Premium sesame and other oilseeds', highlight: 'Best Seller' },
+  { name: 'Grains & Cereals', image: '/products/grains-and-cereals.jpeg', desc: 'High-quality Ethiopian grains', highlight: 'Ancient Heritage' },
+  { name: 'Pulses', image: '/products/pulses.jpeg', desc: 'Diverse range of nutritious pulses', highlight: 'Protein Rich' },
+  { name: 'Coffee', image: '/products/coffee.jpeg', desc: 'World-renowned Ethiopian coffee', highlight: 'Premium Grade' },
+  { name: 'Spices', image: '/products/spices.jpeg', desc: 'Aromatic and flavorful spices', highlight: 'Traditional' },
+  { name: 'Fruits', image: '/products/fruits.jpeg', desc: 'Fresh tropical fruits', highlight: 'Farm Fresh' },
 ]
 
 const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } } }
