@@ -83,16 +83,12 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center gap-3">
             <div className='relative w-36 h-14 px-2 flex items-center justify-center'>
-            <div className="absolute inset-0 bg-gradient-to-br from-[#FFFFFF] to-[#FFFDD0] rounded-lg transform skew-x-[-20deg] p-4"></div>
-             <div className="relative h-12 w-[240px]">
-            <img src="/logo.png" alt="NAS Business Group Logo" className="absolute h-12 w-32 rounded-md "/>
-            </div>
-            <div>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FFFFFF] to-[#FFFDD0] rounded-lg transform skew-x-[-20deg] p-4"></div>
+              <div className="relative h-12 w-[240px]">
+                <img src="/logo.png" alt="NAS Business Group Logo" className="absolute h-12 w-32 rounded-md " />
               </div>
-              {/* <span className={`font-bold text-xl tracking-tight ${scrolled ? 'text-[#223059]' : 'text-white'}`}>NAS</span>
-              <span className={`block text-xs tracking-widest ${scrolled ? 'text-[#D0AF39]' : 'text-[#D0AF39]'}`}>
-                BUSINESS GROUP
-              </span> */}
+              <div>
+              </div>
             </div>
           </div>
 
@@ -792,20 +788,18 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
           {/* Logo & About */}
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 ">
             <div className="flex items-center gap-3 mb-6">
-              <div className="relative w-12 h-12">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#D0AF39] to-[#B8962E] rounded-xl transform rotate-3"></div>
-                <div className="absolute inset-0 bg-[#223059] border border-[#D0AF39]/30 rounded-xl flex items-center justify-center">
-                  <span className="text-[#D0AF39] font-bold text-xl">N</span>
-                </div>
+            <div className='relative w-36 h-14 px-2 flex items-center justify-center'>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FFFFFF] to-[#FFFDD0] rounded-lg transform skew-x-[-20deg] p-4"></div>
+              <div className="relative h-12 w-[240px]">
+                <img src="/logo.png" alt="NAS Business Group Logo" className="absolute h-12 w-32 rounded-md " />
               </div>
               <div>
-                <span className="font-bold text-xl text-white tracking-tight">NAS</span>
-                <span className="block text-xs text-[#D0AF39] tracking-widest">BUSINESS GROUP</span>
               </div>
             </div>
-            <p className="text-white/60 leading-relaxed max-w-md">
+            </div>
+            <p className="text-white/60 leading-relaxed max-w-md text-[12px] sm:text-sm">
               Connecting the world with Ethiopia's finest agricultural exports. 
               Premium quality products, sustainable practices, global reach.
             </p>
@@ -814,15 +808,25 @@ const Footer = () => {
           {/* Quick Links */}
           <div>
             <h4 className="text-white font-semibold mb-6">Quick Links</h4>
-            <ul className="space-y-3">
-              {['Our Story', 'Our Products', 'Our Services', 'Contact'].map((link) => (
-                <li key={link}>
-                  <button 
-                    onClick={() => document.getElementById(link.toLowerCase().replace(/\s+/g, '-'))?.scrollIntoView({ behavior: 'smooth' })}
-                    className="text-white/60 hover:text-[#D0AF39] transition-colors"
+            <ul className="space-y-2.5 sm:space-y-3">
+              {[
+                { id: 'our-story', name: 'Our Story', href: 'our-story' },
+                { id: 'our-products', name: 'Our Products', href: 'our-products' },
+                { id: 'our-services', name: 'Our Services', href: 'our-services' },
+                { id: 'contact', name: 'Contact', href: 'contact' },
+              ].map((link) => (
+                <li key={link.id}>
+                  <a
+                    href={`#${link.href}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById(link.href)?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="group flex items-center text-white/60 hover:text-[#D0AF39] text-[12px] sm:text-sm transition-colors duration-300"
                   >
-                    {link}
-                  </button>
+                    <span className="w-0 h-px bg-[#D0AF39] group-hover:w-4 transition-all duration-300 mr-0 group-hover:mr-2" />
+                    {link.name}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -831,7 +835,7 @@ const Footer = () => {
           {/* Contact */}
           <div>
             <h4 className="text-white font-semibold mb-6">Contact</h4>
-            <ul className="space-y-3 text-white/60">
+            <ul className="space-y-3 text-white/60 text-[12px] sm:text-sm">
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#D0AF39]" />
                 +251 911 258479
