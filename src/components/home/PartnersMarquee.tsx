@@ -17,9 +17,9 @@ const PartnerLogo = ({ partner, isHovered, onHover, onLeave }) => {
     <div
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
-      className="flex-shrink-0 mx-8 md:mx-12 cursor-pointer group relative"
+      className="flex-shrink-0 mx-2 md:mx-12 cursor-pointer group relative"
     >
-      <div className="relative flex flex-col items-center justify-center h-32 w-48">
+      <div className="relative flex flex-col items-center justify-center h-16 w-24 md:h-32 md:w-48">
         {/* Glow Effect on Hover */}
         <div
           className={`absolute inset-0 bg-[#D0AF39]/10 rounded-xl blur-xl pointer-events-none transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
@@ -149,37 +149,56 @@ export default function PartnersMarquee() {
         <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-white via-white/95 to-transparent z-20 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-white via-white/95 to-transparent z-20 pointer-events-none" />
 
-        {/* CSS-based Infinite Marquee */}
-        <div
-          ref={marqueeRef}
-          className="flex items-center"
-          style={{
-            animation: `marquee-${direction} 10s linear infinite`,
-            animationPlayState: isPaused ? 'paused' : 'running',
-          }}
-        >
-          {allPartners.map((partner, idx) => (
-            <PartnerLogo
-              key={`${partner.name}-${idx}`}
-              partner={partner}
-              isHovered={hoveredIndex === idx}
-              onHover={(e) => handleHover(idx, e)}
-              onLeave={handleLeave}
-            />
-          ))}
+        {/* Marquee Wrapper: Add overflow-hidden and whitespace-nowrap */}
+        <div className="overflow-hidden whitespace-nowrap">
+
+          {/* CSS-based Infinite Marquee: Add a wrapper div here */}
+          <div
+            ref={marqueeRef}
+            // Use a dynamic class name based on the direction prop
+            className={`flex items-center ${direction === 'left' ? 'animate-marquee-left' : 'animate-marquee-right'}`}
+            style={{
+              animationPlayState: isPaused ? 'paused' : 'running',
+              // Keep the 10s linear infinite here if you want to control speed outside of the @keyframes definition
+              animation: `marquee-${direction} 15s linear infinite`,
+            }}
+          >
+            {/* DUPLICATE YOUR CONTENT HERE FOR SEAMLESSNESS */}
+            {allPartners.map((partner, idx) => (
+              <PartnerLogo
+                key={`original-${partner.name}-${idx}`}
+                partner={partner}
+                isHovered={hoveredIndex === idx}
+                onHover={(e) => handleHover(idx, e)}
+                onLeave={handleLeave}
+              />
+            ))}
+            {/* Second set of partners */}
+            {allPartners.map((partner, idx) => (
+              <PartnerLogo
+                key={`duplicate-${partner.name}-${idx}`} // Use a different key prefix
+                partner={partner}
+                isHovered={hoveredIndex === idx}
+                onHover={(e) => handleHover(idx, e)}
+                onLeave={handleLeave}
+              />
+            ))}
+          </div>
         </div>
 
         {/* CSS Keyframes */}
         <style>{`
-          @keyframes marquee-left {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-33.333%); }
-          }
-          @keyframes marquee-right {
-            0% { transform: translateX(-33.333%); }
-            100% { transform: translateX(0); }
-          }
-        `}</style>
+      /* Change the 33.333% to 100% because we are now duplicating content once */
+      @keyframes marquee-left {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); } /* Scrolls the full width of one set */
+      }
+      @keyframes marquee-right {
+        /* To scroll right continuously, you reverse the keyframes */
+        0% { transform: translateX(-100%); } 
+        100% { transform: translateX(0); } /* Ends exactly where the original starts */
+      }
+    `}</style>
       </div>
 
       {/* Partnership CTA - Enhanced Design */}

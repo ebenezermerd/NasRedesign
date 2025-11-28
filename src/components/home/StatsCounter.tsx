@@ -12,7 +12,7 @@ const stats = [
 function AnimatedCounter({ value, duration = 2 }: { value: number; duration?: number }) {
   const [displayValue, setDisplayValue] = useState(0)
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const isInView = useInView(ref, { once: true, margin: '0px' })
 
   useEffect(() => {
     if (!isInView) return
@@ -37,7 +37,7 @@ function AnimatedCounter({ value, duration = 2 }: { value: number; duration?: nu
 
 function StatCard({ stat, index }: any) {
   const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-50px' })
+  const isInView = useInView(ref, { once: true, margin: '0px' })
   return (
     <motion.div ref={ref} initial={{ opacity: 0, y: 50 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }} className="relative group">
       <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:border-[#D0AF39]/30 transition-all duration-500 overflow-hidden">
@@ -63,7 +63,7 @@ function StatCard({ stat, index }: any) {
 
 export default function StatsCounter() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(containerRef, { once: true, margin: '-100px' })
+  const isInView = useInView(containerRef, { once: true, margin: '0px' })
   return (
     <section ref={containerRef} className="relative py-32 bg-[#223059] overflow-hidden">
       <div className="absolute inset-0">
@@ -83,7 +83,7 @@ export default function StatsCounter() {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Numbers That Speak</h2>
           <p className="text-white/60 text-lg max-w-2xl mx-auto">Our commitment to excellence is reflected in every metric we achieve</p>
         </motion.div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, index) => (
             <StatCard key={stat.label} stat={stat} index={index} />
           ))}

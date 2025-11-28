@@ -149,9 +149,9 @@ export default function ProductDialog({ isOpen, onClose, initialProduct }: { isO
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => (!open ? onClose() : undefined)}>
-      <DialogContent className="max-w-5xl p-0 overflow-hidden bg-white border-0 rounded-3xl">
+      <DialogContent className="max-w-5xl w-[95vw] max-h-[90vh] p-0 overflow-hidden bg-white border-0 rounded-2xl md:rounded-3xl">
         <AnimatePresence mode="wait">
-          <motion.div key={product.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="grid md:grid-cols-2">
+          <motion.div key={product.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="grid grid-cols-1 md:grid-cols-2 max-h-[90vh] overflow-y-auto md:overflow-hidden" >
             <div className="relative bg-[#223059] p-6 md:p-8">
               <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
                 <div className={`absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br ${product.color} rounded-full opacity-20 blur-3xl`} />
@@ -254,6 +254,14 @@ export default function ProductDialog({ isOpen, onClose, initialProduct }: { isO
             </div>
           </motion.div>
         </AnimatePresence>
+        <motion.button
+          onClick={onClose}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="absolute top-4 right-4 z-50 p-2 rounded-full bg-white/40 hover:bg-white/20 text-gray md:text-[#223059] md:bg-black/5 md:hover:bg-black/10 transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </motion.button>
       </DialogContent>
     </Dialog>
   )

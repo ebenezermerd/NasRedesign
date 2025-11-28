@@ -134,7 +134,7 @@ const Navbar = () => {
               {link}
             </button>
           ))}
-          <Button onClick={() => scrollToSection('Contact')} className="w-full bg-gradient-to-r from-[#D0AF39] to-[#B8962E] text-[#223059] font-semibold rounded-full">
+          <Button onClick={() => scrollToSection('Contact')} className="w-full bg-gradient-to-r from-[#D0AF39] to-[#B8962E] text-[#223059] font-semibold py-3 rounded-full">
             Get a Quote
           </Button>
         </div>
@@ -752,9 +752,9 @@ const ContactSection = () => {
                     id="privacy"
                     checked={formData.privacy}
                     onCheckedChange={(checked) => setFormData({...formData, privacy: checked})}
-                    className="mt-1 border-white/30 data-[state=checked]:bg-[#D0AF39] data-[state=checked]:border-[#D0AF39]"
+                    className="mt-1 border-white/30 data-[state=checked]:bg-[#D0AF39] data-[state=checked]:border-[#D0AF39] cursor-pointer relative z-10"
                   />
-                  <label htmlFor="privacy" className="text-sm text-white/50 leading-relaxed">
+                  <label htmlFor="privacy" className="text-sm text-white/50 leading-relaxed cursor-pointer select-none">
                     I agree to the privacy policy and terms of service.
                   </label>
                 </div>
